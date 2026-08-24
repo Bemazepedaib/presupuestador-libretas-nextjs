@@ -26,7 +26,8 @@ export function QuoteForm() {
     paperColor: "blanco",
     printMode: "bntinta",
     rounding: "none",
-    utility: 1.2
+    utility: 1.2,
+    designCost: 10
   });
 
   const result = useMemo(() => {
@@ -43,7 +44,7 @@ export function QuoteForm() {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
-  function handleNumber(key: "quantity" | "sheets" | "printedPages" | "ringPrice" | "utility", value: string) {
+  function handleNumber(key: "quantity" | "sheets" | "printedPages" | "ringPrice" | "utility" | "designCost", value: string) {
     const parsed = Number(value);
     update(key, Number.isFinite(parsed) ? parsed : 0);
   }
@@ -52,15 +53,9 @@ export function QuoteForm() {
     <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl">
         <header className="mb-8">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-            Herramienta de producción
-          </p>
           <h1 className="text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-            Presupuestador de libretas
+            Cotización de libretas
           </h1>
-          <p className="mt-2 max-w-3xl text-slate-600">
-            Calcula materiales, mano de obra, pasajes, margen por producción y precio final por presupuesto.
-          </p>
         </header>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_430px]">
           <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
@@ -74,7 +69,7 @@ export function QuoteForm() {
                 onClick={() => window.print()}
                 className="no-print hidden rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 sm:block"
               >
-                Imprimir presupuesto
+                Exportar cotización
               </button>
             </div>
 
@@ -195,9 +190,20 @@ export function QuoteForm() {
                 onChange={(e) => update("rounding", e.target.value as Rounding)}
                 options={[
                   { value: "none", label: "Sin redondeo" },
-                  { value: "up", label: "Hacia arriba — múltiplo de S/ 0.25" },
-                  { value: "down", label: "Hacia abajo — múltiplo de S/ 0.25" }
+                  { value: "up_25", label: "Hacia arriba — múltiplo de S/ 0.25" },
+                  { value: "down_25", label: "Hacia abajo — múltiplo de S/ 0.25" },
+                  { value: "up_50", label: "Hacia arriba — múltiplo de S/ 0.5" },
+                  { value: "down_50", label: "Hacia abajo — múltiplo de S/ 0.5" }
                 ]}
+              />
+
+              <InputField
+                label="Diseño"
+                type="number"
+                min={0}
+                step={1}
+                value={form.designCost}
+                onChange={(e) => handleNumber("designCost", e.target.value)}
               />
             </div>
           </section>

@@ -143,11 +143,19 @@ export function laminationUnitCost(totalLaminationSheets: number): number {
   return LAMINATION_TIERS.find((tier) => totalLaminationSheets >= tier.min)?.price ?? 2;
 }
 
-export function roundToQuarter(value: number, mode: Rounding): number {
+export function roundPrice(value: number, mode: Rounding): number {
   if (mode === "none") return value;
-  const factor = 4;
-  if (mode === "up") return Math.ceil(value * factor - 1e-9) / factor;
-  return Math.floor(value * factor + 1e-9) / factor;
+
+  const config = {
+    up_25: { step: 0.25, round: Math.ceil },
+    down_25: { step: 0.25, round: Math.floor },
+    up_50: { step: 0.5, round: Math.ceil },
+    down_50: { step: 0.5, round: Math.floor },
+  }[mode];
+
+  const epsilon = 1e-9;
+
+  return config.round(value / config.step + epsilon) * config.step;
 }
 
 export function ringLaborCost(mode: "simple" | "doble" | "none"): number {
@@ -183,7 +191,8 @@ export function calculateQuote(input: QuoteInput) {
     paperColor,
     printMode,
     rounding,
-    utility
+    utility,
+    designCost
   } = input;
 
   if (quantity < 1 || sheets < 1 || printedPages < 0) {
@@ -242,11 +251,11 @@ export function calculateQuote(input: QuoteInput) {
   // >= 12: quantity + un adicional por cada bloque/fracción de 12.
   const extraUnits = quantity < 12 ? 1 : Math.ceil(quantity / 12);
   
-  const baseUnitCost = ( ( unitMaterialCost * (quantity + extraUnits) ) + passCostTotal + unitLaborCost) / quantity;
+  const baseUnitCost =  ( ( ( unitMaterialCost + unitLaborCost ) * (quantity + extraUnits) ) + passCostTotal + designCost) / quantity;
 
   let adjustedUnitPrice = ( ( baseUnitCost * (utility) ) );
 
-  let roundedUnitPrice = roundToQuarter(
+  let roundedUnitPrice = roundPrice(
     adjustedUnitPrice,
     rounding
   );

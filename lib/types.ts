@@ -4,7 +4,12 @@ export type Orientation = "horizontal" | "vertical";
 export type CoverType = "dura" | "blanda";
 export type PaperColor = "marfil" | "blanco";
 export type PrintMode = "bntinta" | "bnlaser" | "color";
-export type Rounding = "none" | "up" | "down";
+export type Rounding =
+  | "none"
+  | "up_25"
+  | "down_25"
+  | "up_50"
+  | "down_50";
 
 export interface QuoteInput {
   quantity: number;
@@ -18,6 +23,7 @@ export interface QuoteInput {
   paperColor: PaperColor;
   printMode: PrintMode;
   utility: number;
+  designCost: number;
   rounding: Rounding;
 }
 

@@ -20,9 +20,9 @@ export function QuoteSummary({ result, input, money }: Props) {
     <aside className="print-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="border-b border-slate-200 pb-5">
         <p className="text-xs font-bold uppercase tracking-wider text-indigo-600">Resultado</p>
-        <h2 className="mt-1 text-2xl font-black text-slate-950">Presupuesto</h2>
+        <h2 className="mt-1 text-2xl font-black text-slate-950">Cotización</h2>
         <div className="mt-4 rounded-2xl bg-indigo-600 p-5 text-white">
-          <p className="text-sm text-indigo-100">Precio final del presupuesto por {String(input.quantity)} libretas</p>
+          <p className="text-sm text-indigo-100">Precio final de la cotización por {String(input.quantity)} libretas</p>
           <p className="mt-1 text-4xl font-black">{money.format(result.totalQuote)}</p>
           <p className="text-sm text-indigo-100 font-black">Costo unitario redondeado {money.format(result.roundedUnitPrice)}</p>
           <p className="mt-2 text-xs text-indigo-100">

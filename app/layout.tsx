@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Presupuestador de Libretas",
+  title: "Cotización de Libretas",
   description: "Calculadora modular de costos para libretas anilladas y cosidas."
 };
 
