@@ -17,6 +17,7 @@ export interface QuoteInput {
   ringPrice: number;
   paperColor: PaperColor;
   printMode: PrintMode;
+  utility: number;
   rounding: Rounding;
 }
 

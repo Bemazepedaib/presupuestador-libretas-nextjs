@@ -25,7 +25,8 @@ export function QuoteForm() {
     ringPrice: 0.5504,
     paperColor: "blanco",
     printMode: "bntinta",
-    rounding: "none"
+    rounding: "none",
+    utility: 1.2
   });
 
   const result = useMemo(() => {
@@ -42,7 +43,7 @@ export function QuoteForm() {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
-  function handleNumber(key: "quantity" | "sheets" | "printedPages" | "ringPrice", value: string) {
+  function handleNumber(key: "quantity" | "sheets" | "printedPages" | "ringPrice" | "utility", value: string) {
     const parsed = Number(value);
     update(key, Number.isFinite(parsed) ? parsed : 0);
   }
@@ -177,6 +178,15 @@ export function QuoteForm() {
                   { value: "bnlaser", label: "B/N Láser — S/ 0.05 por página" },
                   { value: "color", label: "Color — S/ 0.10 por página" }
                 ]}
+              />
+
+              <InputField
+                label="Utilidad deseada"
+                type="number"
+                min={1}
+                step={0.1}
+                value={form.utility}
+                onChange={(e) => handleNumber("utility", e.target.value)}
               />
 
               <SelectField

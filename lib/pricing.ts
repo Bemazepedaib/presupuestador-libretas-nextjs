@@ -182,7 +182,8 @@ export function calculateQuote(input: QuoteInput) {
     ringPrice,
     paperColor,
     printMode,
-    rounding
+    rounding,
+    utility
   } = input;
 
   if (quantity < 1 || sheets < 1 || printedPages < 0) {
@@ -236,14 +237,14 @@ export function calculateQuote(input: QuoteInput) {
 
   const unitLaborCost = sheetLabor + coverLabor + bindingLabor + hardCoverLabor;
 
-  const baseUnitCost = (unitMaterialCost * 2) + unitLaborCost;
-
   // Regla indicada por el usuario:
   // < 12: multiplicador quantity + 1.
   // >= 12: quantity + un adicional por cada bloque/fracción de 12.
   const extraUnits = quantity < 12 ? 1 : Math.ceil(quantity / 12);
+  
+  const baseUnitCost = ( ( unitMaterialCost * (quantity + extraUnits) ) + passCostTotal + unitLaborCost) / quantity;
 
-  let adjustedUnitPrice = ( ( baseUnitCost * (quantity + extraUnits) ) + passCostTotal) / quantity;
+  let adjustedUnitPrice = ( ( baseUnitCost * (utility) ) );
 
   let roundedUnitPrice = roundToQuarter(
     adjustedUnitPrice,
