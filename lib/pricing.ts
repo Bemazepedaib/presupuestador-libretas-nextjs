@@ -69,7 +69,7 @@ export const FOLDCOTE_PRINT = {
 
 export const LAMINATION_TIERS = [
   { min: 50, price: 0.30 },
-  { min: 12, price: 0.50 },
+  { min: 10, price: 0.50 },
   { min: 3, price: 1.00 },
   { min: 2, price: 1.50 },
   { min: 1, price: 2.00 }
