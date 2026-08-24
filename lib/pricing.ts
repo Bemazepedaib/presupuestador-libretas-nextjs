@@ -15,7 +15,8 @@ export const PAPER_PRICES: Record<PaperColor, number> = {
 };
 
 export const PRINT_PRICES: Record<PrintMode, number> = {
-  bn: 0.05,
+  bntinta: 0.02,
+  bnlaser: 0.05,
   color: 0.10
 };
 
@@ -252,7 +253,7 @@ export function calculateQuote(input: QuoteInput) {
   const totalQuote = ( roundedUnitPrice * quantity );
 
   const paperLabel = paperColor === "marfil" ? "Hoja A4 75g marfil" : "Hoja A4 75g blanco";
-  const printLabel = printMode === "bn" ? "Impresión página A4 B/N" : "Impresión página A4 Color";
+  const printLabel = printMode === "bntinta" ? "Impresión página A4 B/N Tinta" : printMode === "bnlaser" ? "Impresión página A4 B/N Láser" : "Impresión página A4 Color";
 
   const items = [
     {

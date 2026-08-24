@@ -3,7 +3,7 @@ export type Size = "A4" | "A5" | "A6" | "A7";
 export type Orientation = "horizontal" | "vertical";
 export type CoverType = "dura" | "blanda";
 export type PaperColor = "marfil" | "blanco";
-export type PrintMode = "bn" | "color";
+export type PrintMode = "bntinta" | "bnlaser" | "color";
 export type Rounding = "none" | "up" | "down";
 
 export interface QuoteInput {

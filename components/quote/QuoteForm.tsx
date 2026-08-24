@@ -24,7 +24,7 @@ export function QuoteForm() {
     printedPages: 0,
     ringPrice: 0.5504,
     paperColor: "blanco",
-    printMode: "bn",
+    printMode: "bntinta",
     rounding: "none"
   });
 
@@ -173,7 +173,8 @@ export function QuoteForm() {
                 value={form.printMode}
                 onChange={(e) => update("printMode", e.target.value as PrintMode)}
                 options={[
-                  { value: "bn", label: "B/N — S/ 0.05 por página" },
+                  { value: "bntinta", label: "B/N Tinta — S/ 0.02 por página" },
+                  { value: "bnlaser", label: "B/N Láser — S/ 0.05 por página" },
                   { value: "color", label: "Color — S/ 0.10 por página" }
                 ]}
               />
